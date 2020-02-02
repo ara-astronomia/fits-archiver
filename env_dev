@@ -1,0 +1,27 @@
+# common
+inizio=`date +%s`
+logfolder= # inserire la cartella dove scrivere i log
+pidfolder= # inserire la cartella dove scrivere i pid
+src= # cartella sorgente delle immagini
+image= # cartella padre dei sorgenti
+dst= # cartella destinazione delle immagini con nome progressivo
+
+# sincronizza
+datan=`date "+%Y/%m/%d %H:%M"`
+sambashare= # in quale cartella inserire la directory condivisa con samba da windows
+sambayear=$sambashare/2019 # cambiare l'anno con quello su cui si vuole lavorare
+serverip= # indirizzo ip della macchina windows che comanda il telescopio
+
+# fits2csv
+years=(2019) # elenca gli anni che si vogliono elaborare
+db_fit_path= # indicare la cartella padre del progetto dbFits
+
+# hardlinks
+fitsheaders=fits_headers.txt
+start_date="2017-01-01" # data di inizio scaricamento dati fits header dal sito
+end_date="2019-12-31" # data di fine scaricamento dati fits header dal sito
+arasite="https://ara.roma.it/fits_headers.txt?utf8=%E2%9C%93&date_inizio=$start_date&date_fine=$end_date" # bisogna essere loggati
+
+# awsync
+bucket= # inserire il bucket in cui copiare le foto
+aws_profile= # indicare il profilo aws da usare per copiare nel bucket sopraindicato
