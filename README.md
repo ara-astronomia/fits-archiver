@@ -1,5 +1,7 @@
 ** HOW TO **
 
+Rename env_dev in .env and replace values accordingly with your own environment and necessity.
+
 Scripts should be run in this order:
 
 1 - sincronizza.sh
@@ -8,7 +10,7 @@ Scripts should be run in this order:
 
 2 - fits2csv.sh
 
-  Extracts the FITS HEADERS from the images and collect them on csv files divided per year.
+  Extracts the FITS HEADERS from the images and collect them on csv files divided per year using https://github.com/ara-astronomia/dbFits
 
 2a - The ARA website downloads daily these csv files and save into its DB the values.
 
