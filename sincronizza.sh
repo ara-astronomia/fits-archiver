@@ -48,7 +48,7 @@ else
 fi
 
 if [ $power_off -eq 1 ]; then
-  sshpass -p "$ssh_pwd" ssh $ssh_user@$ssh_ip shutdown /s /t 0
+  sshpass -p "$ssh_pwd" ssh $ssh_user@$ssh_ip shutdown /s /hybrid /t 0
 fi
 fine=`date +%s`
 echo "Operazione eseguita in $(($fine-$inizio)) secondi il $datan" >> $logfile
