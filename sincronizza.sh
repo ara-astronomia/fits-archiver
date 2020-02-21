@@ -18,7 +18,7 @@ fi
 # Ensure PID file is removed on program exit.
 trap "rm -f -- '$mypidfile'" EXIT
 
-ping -c 3 $serverip > /dev/null 2>&1
+ping -c 3 $ssh_ip > /dev/null 2>&1
 if [ $? -ne 0 ]; then
   echo "macchina windows spenta il $datan" >> $logfile
   exit 1;
@@ -26,7 +26,7 @@ fi
 # Create a file with current PID to indicate that process is running.
 echo $$ > "$mypidfile"
 
-if [ -d $year ]; then
+if [ -d $src ]; then
   sshpass -p "$ssh_pwd" rsync -avzs "$ssh_user@$ssh_ip:$ssh_path/$year" $src
 
   if [ $? -ne 0 ]; then
@@ -36,7 +36,7 @@ if [ -d $year ]; then
     echo "Effettuata copia file" >> $logfile
   fi
 else
-  echo "cartella $year non trovata" >> $logfile
+  echo "cartella $src non trovata" >> $logfile
 fi
 fine=`date +%s`
 echo "Operazione eseguita in $(($fine-$inizio)) secondi il $datan" >> $logfile
