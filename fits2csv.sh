@@ -8,7 +8,7 @@ mypidfile=$pidfolder/$nomeprogramma.pid
 # Could add check for existence of mypidfile here if interlock is
 # needed in the shell script itself.
 if [ -f $mypidfile ]; then
-  echo "$nomeprogramma è già in esecuzione" > $logfile
+  echo "$nomeprogramma in esecuzione" > $logfile
   exit 1;
 fi
 
@@ -16,10 +16,10 @@ fi
 trap "rm -f -- '$mypidfile'" EXIT
 
 for year in ${years[@]}; do
-  csvname=$src/$year/$year-fits.csv
+  csvname=$image/$year-fits.csv
 
   rm -f $csvname*
-  python3 $db_fit_path/dbFits/src/fits.py -i $src/$year -o $csvname > $logfile
+  python2 $db_fit_path/dbFits/src/fits.py -i $src/$year -o $csvname > $logfile
   gzip $csvname
 done
 

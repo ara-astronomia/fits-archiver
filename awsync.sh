@@ -8,7 +8,7 @@ bandwidth=80
 #timeend=1500
 
 if [ -f $mypidfile ]; then
-  echo "programma in esecuzione" >> $logfile
+  echo "$nomeprogramma in esecuzione" >> $logfile
   exit 1;
 fi
 

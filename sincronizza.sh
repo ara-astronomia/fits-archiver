@@ -8,7 +8,7 @@ mypidfile=$pidfolder/$nomeprogramma.pid
 
 #echo $HOME >> logfile
 if [ -f $mypidfile ]; then
-  echo "$nomeprogramma è già in esecuzione" >> $logfile
+  echo "$nomeprogramma in esecuzione" >> $logfile
   exit 1;
 fi
 
@@ -26,19 +26,17 @@ fi
 # Create a file with current PID to indicate that process is running.
 echo $$ > "$mypidfile"
 
-if [ ! -d $sambayear ]; then
-echo "mount della  cartella condivisa in corso" >> $logfile
-mount $sambashare >> $logfile
+if [ -d $year ]; then
+  sshpass -p "$ssh_pwd" rsync -avzs "$ssh_user@$ssh_ip:$ssh_path/$year" $src
+
+  if [ $? -ne 0 ]; then
+    echo "Errore rsync il $datan" >> $logfile
+    exit 1;
+  else
+    echo "Effettuata copia file" >> $logfile
+  fi
 else
-echo "cartella remota $sambashare già montata" >> $logfile
-fi
-if [ -d $sambayear ]; then
-#echo $sambayear >> $logfile
-#echo $image >> $logfile
-rsync -avz --chmod=ugo=rwX $sambayear $image
-echo "Effettuata copia file" >> $logfile
-else
-echo "cartella $sambayear non trovata" >> $logfile
+  echo "cartella $year non trovata" >> $logfile
 fi
 fine=`date +%s`
 echo "Operazione eseguita in $(($fine-$inizio)) secondi il $datan" >> $logfile

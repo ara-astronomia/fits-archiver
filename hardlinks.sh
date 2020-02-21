@@ -6,7 +6,7 @@ logfile=$logfolder/$nomeprogramma
 mypidfile=$pidfolder/$nomeprogramma.pid
 
 if [ -f $mypidfile ]; then
-  echo "$nomeprogramma è già in esecuzione" > $logfile
+  echo "$nomeprogramma in esecuzione" > $logfile
   exit 1;
 fi
 
