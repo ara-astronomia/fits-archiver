@@ -18,11 +18,19 @@ fi
 # Ensure PID file is removed on program exit.
 trap "rm -f -- '$mypidfile'" EXIT
 
-ping -c 3 $ssh_ip > /dev/null 2>&1
+ping -c 1 $ssh_ip > /dev/null 2>&1
 if [ $? -ne 0 ]; then
   echo "macchina windows spenta il $datan" >> $logfile
-  exit 1;
+  power_off=1
 fi
+wakeonlan b8:ac:6f:7c:fc:b9
+printf "%s" "waiting for ServerXY ..."
+while ! ping -c 1 -n -w 1 $ssh_ip &> /dev/null
+do
+    printf "%c" "."
+done
+printf "\n%s\n"  "Server is back online"
+
 # Create a file with current PID to indicate that process is running.
 echo $$ > "$mypidfile"
 
@@ -37,6 +45,10 @@ if [ -d $src ]; then
   fi
 else
   echo "cartella $src non trovata" >> $logfile
+fi
+
+if [ $power_off -eq 1 ]; then
+  sshpass -p "$ssh_pwd" ssh $ssh_user@$ssh_ip shutdown /s /t 0
 fi
 fine=`date +%s`
 echo "Operazione eseguita in $(($fine-$inizio)) secondi il $datan" >> $logfile
